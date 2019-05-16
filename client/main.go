@@ -1,11 +1,11 @@
 package main
 
 import (
-	pb "../helloworld"
 	"context"
 	"fmt"
 	"github.com/coreos/etcd/clientv3"
 	etcdnaming "github.com/coreos/etcd/clientv3/naming"
+	pb "github.com/surfingPro/gRPCbasis"
 	"google.golang.org/grpc"
 	"strconv"
 	"time"
