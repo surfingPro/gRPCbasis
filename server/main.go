@@ -26,9 +26,10 @@ import (
 	"flag"
 	"fmt"
 	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/clientv3/naming"
-	pb "github.com/surfingPro/gRPCbasis"
+	etcdnaming "github.com/coreos/etcd/clientv3/naming"
+	pb "github.com/surfingPro/gRPCbasis/helloworld" 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/naming"
 	"log"
 	"net"
 
@@ -49,14 +50,14 @@ func main() {
 		return
 	}
 
-	fmt.Printf("starting hello service at %d", *port)
+	log.Printf("starting hello service at %s", *port)
 
 	// 创建命名解析
-	r := &naming.GRPCResolver{Client: cli}
+	r := &etcdnaming.GRPCResolver{Client: cli}
 	// 将本服务注册添加etcd中，服务名称为myService，服务地址为本机8001端口
 	r.Update(context.TODO(), "myService", naming.Update{Op: naming.Add, Addr: "127.0.0.1:" + string(*port)})
 
-	lis, err := net.Listen("tcp", *port)
+	lis, err := net.Listen("tcp", ":"+string(*port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

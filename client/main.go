@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/coreos/etcd/clientv3"
 	etcdnaming "github.com/coreos/etcd/clientv3/naming"
-	pb "github.com/surfingPro/gRPCbasis"
+	pb "github.com/surfingPro/gRPCbasis/helloworld"
 	"google.golang.org/grpc"
 	"strconv"
 	"time"
@@ -26,7 +26,8 @@ func main() {
 	r := &etcdnaming.GRPCResolver{Client: cli}
 	b := grpc.RoundRobin(r)
 
-	conn, err := grpc.Dial("myService", grpc.WithBalancer(b), grpc.WithBlock())
+	conn, err := grpc.Dial("myService", grpc.WithBalancer(b), grpc.WithBlock(), grpc.WithInsecure())
+	//conn, err := grpc.Dial("myService", grpc.WithBalancer(b))
 	if err != nil {
 		panic(err)
 	}
