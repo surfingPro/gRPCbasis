@@ -26,8 +26,8 @@ import (
 	"flag"
 	"fmt"
 	pb "gRPCbasis/helloworld"
-	"go.etcd.io/etcd/clientv3"
-	"go.etcd.io/etcd/clientv3/naming"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/coreos/etcd/clientv3/naming"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -38,8 +38,6 @@ import (
 var (
 	port = flag.String("port", "50001", "listening port")
 )
-
-
 
 func main() {
 	flag.Parse()
@@ -56,8 +54,7 @@ func main() {
 	// 创建命名解析
 	r := &naming.GRPCResolver{Client: cli}
 	// 将本服务注册添加etcd中，服务名称为myService，服务地址为本机8001端口
-	r.Update(context.TODO(), "myService", naming.Update{Op: naming.Add, Addr: "127.0.0.1:"+ string(*port)})
-
+	r.Update(context.TODO(), "myService", naming.Update{Op: naming.Add, Addr: "127.0.0.1:" + string(*port)})
 
 	lis, err := net.Listen("tcp", *port)
 	if err != nil {
@@ -69,10 +66,7 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 
-
-
 }
-
 
 // server is used to implement helloworld.GreeterServer.
 type server struct{}
