@@ -1,9 +1,9 @@
 package main
 
 import (
+	pb "../helloworld"
 	"context"
 	"fmt"
-	pb "gRPCbasis/helloworld"
 	"github.com/coreos/etcd/clientv3"
 	etcdnaming "github.com/coreos/etcd/clientv3/naming"
 	"google.golang.org/grpc"
@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func main(){
+func main() {
 	// 连接etcd集群
 	cli, err := clientv3.New(clientv3.Config{
 		// etcd集群成员节点列表
@@ -40,4 +40,3 @@ func main(){
 	}
 
 }
-

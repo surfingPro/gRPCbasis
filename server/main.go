@@ -22,10 +22,10 @@
 package main
 
 import (
+	pb "../helloworld"
 	"context"
 	"flag"
 	"fmt"
-	pb "gRPCbasis/helloworld"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/naming"
 	"google.golang.org/grpc"
